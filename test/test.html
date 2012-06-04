@@ -1,0 +1,62 @@
+<h4>Cross Domain Links (no tracking with standard script, link tracking with cross domain script)</h4>
+<ol>
+    <li><a href="http://campaign4georgetown.org">campaign4georgetown.org link, no trailing slash</a></li>
+    <li><a href="http://campaign4georgetown.org/">campaign4georgetown.org link, w/trailing slash</a></li>
+    <li><a href="http://www9.Campaign4Georgetown.ORG/grad/">www9 Campaign4Georgetown.ORG link</a></li>
+    <li><a href="http://bar.campaign4georgetown.org/">bar.campaign4georgetown.org link</a></li>
+    <li><a href="http://www9.campaign4georgetown.org/grad/">www9 campaign4georgetown.org link</a></li>
+    <li><a href="http://foo.bar.subsite.campaign4georgetown.org/foo/bar/index.html">Fake campaign4georgetown.org link with lots of sub-domains foo.bar.subsite.foo.com/foo/bar/index.html</a></li>
+    <li><a href="http://www9.campaign4georgetown.org/grad/something.doc">(tracked as download only) www9 campaign4georgetown.org document link</a></li>
+    <li><a href="#">(no tracking) anchor for JS</a></li>
+</ol>
+<h4>Internal Links (no tracking with standard script, no tracking with cross domain script)</h4>
+<ol>
+    <li><a href="https://gucms-dev.georgetown.edu/foo">Current site link over https, no trailing slash</a></li>
+    <li><a href="http://gucms-dev.georgetown.edu/foo">Current site link over http, no trailing slash</a></li>
+    <li><a href="http://www.georgetown.edu">Georgetown University link, no trailing slash</a></li>
+    <li><a href="http://www.georgetown.edu/">Georgetown University link, w/trailing slash</a></li>
+    <li><a href="http://www9.Georgetown.EDU/grad/">www9 Georgetown.EDU link</a></li>
+    <li><a href="http://qatar.sfs.georgetown.edu/">SFS Qatar link</a></li>
+    <li><a href="http://www9.georgetown.edu/grad/">www9 Georgetown.edu link</a></li>
+    <li><a href="https://gucms-dev.georgetown.edu/foo-bar#stuff-and_stuff?var=param+value">valid anchor with parameters</a></li>
+    <li><a href="https://gucms-dev.georgetown.edu/foo-bar#stuff-and_stuff?var=param+value/trick">anchor that is invalid</a></li>
+    <li><a href="http://foo.bar.subsite.georgetown.edu/foo/bar/index.html">Fake georgetown.edu link with lots of sub-domains foo.bar.subsite.georgetown.edu/foo/bar/index.html</a></li>
+    <li><a href="/test">Relative link, no trailing slash</a></li>
+    <li><a href="http://www9.georgetown.edu/grad/something.doc">(tracked as download only) www9 georgetown.edu document link</a></li>
+    <li><a href="#">(no tracking) anchor for JS</a></li>
+</ol>
+<h4>Document Downloads</h4>
+<ol>
+    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.docx">.docx link to document</a></li>
+    <li><a href="http://www.google.com/foo.doc">external .doc link (external link, no outbound tracking)</a></li>
+    <li><a href="http://www.google.com/foo.pdf">external .pdf link (external link, no outbound tracking)</a></li>
+    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.mp3">.mp3 link to music file</a></li>
+    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.Docx">.Docx link to document</a></li>
+    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.rar">.rar link to compressed file</a></li>
+    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.mp35">(no tracking) non-valid file type (.mp35)</a></li>
+    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.docx/blah">(no tracking) valid file type (.docx) but with invalid random path attached to file extension (/blah)</a></li>
+    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.docx?thing=foo&amp;rel=foo">(no tracking) .docx link to document with parameterized URL (?thing=foo&amp;rel=foo). Params are for external link campaign codes. Documents do not execute js, so cannot track them in analytics. Only purpose of parms would be if the CMS adds them.</a></li>
+</ol>
+<h4>Outbound Links</h4>
+<ol>
+    <li><a href="http://www.guhoyas.com/">www.guhoyas.com/</a></li>
+    <li><a href="http://www.google.com/">www.google.com/</a></li>
+    <li><a href="http://www.facebook.com/georgetownuniv">www.facebook.com/georgetownuniv/</a></li>
+    <li><a href="http://www.flickr.com/photos/georgetownuniversity">www.flickr.com/photos/georgetownuniversity/</a></li>
+    <li><a href="http://deimos3.apple.com/WebObjects/Core.woa/Browse/georgetown.edu">deimos3.apple.com/WebObjects/Core.woa/Browse/georgetown.edu</a></li>
+    <li><a href="http://www.GUHoyas.com/">www.GUHoyas.com/</a></li>
+    <li><a href="">(no tracking) blank href for JS<br>
+    </a></li>
+    <li><a href="#">(no tracking) anchor for JS</a></li>
+    <li><a href="#blah_blah_blah">(no tracking) anchor with text</a></li>
+</ol>
+<h4>Emails</h4>
+<ol>
+    <li><a href="mailto:foo@georgetown.edu">mailto link to email foo@georgetown.edu</a></li>
+    <li><a href="mailto:foo.bar@yahoo.com">mailto link to email foo.bar@yahoo.com</a></li>
+    <li><a href="mailto:FOO@Georgetown.edu">mailto link to email FOO@Georgetown.edu</a></li>
+    <li><a href="Mailto:FOO@Georgetown.edu">Mailto link to email FOO@Georgetown.edu</a></li>
+    <li><a href="MAILTO:FOO@Georgetown.edu">MAILTO link to email FOO@Georgetown.edu</a></li>
+    <li><a href="MailTo:foo@Georgetown.edu">(no tracking) MailTo link to email foo@georgetown.edu, limitation in pattern </a></li>
+    <li><a href="mailtome:foo@georgetown.edu">(no tracking) invalid mailtome: link to email foo@georgetown.edu</a></li>
+</ol>

@@ -3,7 +3,7 @@ Georgetown University
 Google Analytics for Office of Advancement
 *************************/
 
-// Link tests+dev notes on Dropbox
+// Link tests+dev notes on Dropbox 
 
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 

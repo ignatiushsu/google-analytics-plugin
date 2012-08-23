@@ -1,3 +1,11 @@
+<html>
+<head>
+</head>
+<body>
+
+
+
+<!--Start Test Links-->
 <h4>Cross Domain Links (no tracking with standard script, link tracking with cross domain script)</h4>
 <ol>
     <li><a href="http://campaign4georgetown.org">campaign4georgetown.org link, no trailing slash</a></li>
@@ -60,3 +68,37 @@
     <li><a href="MailTo:foo@Georgetown.edu">(no tracking) MailTo link to email foo@georgetown.edu, limitation in pattern </a></li>
     <li><a href="mailtome:foo@georgetown.edu">(no tracking) invalid mailtome: link to email foo@georgetown.edu</a></li>
 </ol>
+<!--End Test Links-->
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<script src="../jquery.ga.plugin/jquery.ga.plugin.js"></script>
+
+<!--Google Analytics - TEST-->
+<script type="text/javascript">
+
+var _gaq = _gaq || [];
+
+_gaq.push(
+/*Multi-Site Tracker*/
+['_setAccount', 'UA-xxxxxxxx-xx'],
+['_setDomainName', '.georgetown.edu'],
+['_setAllowLinker', true],
+['_setSiteSpeedSampleRate', 10],
+['_trackPageview'],
+/*Master Tracker*/
+['master._setAccount', 'UA-xxxxxxxx-xx'],
+['master._setDomainName', '.georgetown.edu'],
+['master._setAllowLinker', true],
+['master._trackPageview']
+);
+
+/*Global GA Script: Public Pages*/
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = 'http://www.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 Google-Analytics-Plugin
 =======================
 
-Enhancements to Google Analytics. This plugin enhances online measurement of sites that are tracked through Google Analytics (GA) Async. The plugin submits events to GA when visitors click on document/file links, external links and email addresses links; it tracks 404 pages by submitting page referral data to GA. Future releasese will include cross-domain tracking.
+Enhancements to Google Analytics. This plugin enhances online measurement of sites that are tracked through Google Analytics (GA) Async. The plugin submits events to GA when visitors click on document/file links, external links and email addresses links; it tracks 404 pages by submitting page referral data to GA. Future releases will include cross-domain tracking.
 
 Requires jQuery 1.4.2+ and GA async. Read the change log + developer notes.
 Developed by Ignatius Hsu (ignatiushsu [at] georgetown [dot] edu)

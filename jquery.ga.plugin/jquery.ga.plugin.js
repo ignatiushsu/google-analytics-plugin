@@ -1,15 +1,10 @@
-/*************************
-Georgetown University
-Google Analytics for Office of Advancement
-*************************/
-
-// Link tests+dev notes on Dropbox
+// Dev notes on Evernote; Old backups on Dropbox
 
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.0.01 new function for X-domain. Requires jQuery 1.4.2+ and GA async. Read the change log + developer notes.
+ * v1.0.02 new function for X-domain. Requires jQuery 1.4.2+ and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2012 Georgetown University. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
- * Attribution: This code adapts code from gaAddons FREE v1.0, Copyright 2011 Stéphane Hamel (http://gaAddons.com), licensed under CC BY-NC-SA 3.0.
+ * Attribution: This code is inspired by gaAddons FREE v1.0, Copyright 2011 Stéphane Hamel (http://gaAddons.com), licensed under CC BY-NC-SA 3.0.
  */
 
 $(document).ready(function() {

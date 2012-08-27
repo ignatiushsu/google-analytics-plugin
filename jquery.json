@@ -1,0 +1,37 @@
+{
+    "name": "ga.plugin",
+    "version": "1.0.02",
+    "title": "jQuery Google Analytics Async Plugin",
+    "author": {
+        "name": "Ignatius Hsu",
+        "url": "http://about.me/ignatiushsu"
+    },
+    "licenses": [
+        {
+            "type": "Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0)",
+            "url": "http://creativecommons.org/licenses/by-nc-sa/3.0/"
+        }
+    ],
+    "dependencies": {
+        "jquery": ">=1.4.2"
+        "ga-async-tracking": "http://support.google.com/analytics/bin/answer.py?hl=en&answer=1008080"
+    },
+    "description": "This plugin enhances online measurement of sites that are tracked through Google Analytics (GA) Async. The plugin submits events to GA when visitors click on document/file links, external links and email addresses links; it tracks 404 pages by submitting page referral data to GA. Future releasese will include cross-domain tracking.",
+    "keywords": [
+        "Google Analytics Async",
+        "online measurement",
+        "Web analytics",
+        "site metrics"
+    ],
+    "homepage": "https://github.com/ignatiushsu/google-analytics-plugin",
+    "maintainers": [
+        {
+            "name": "Ignatius Hsu",
+            "email" : "ignatiushsu[at]gmail[dot]com",
+            "url": "http://about.me/ignatiushsu"
+        }
+    ],
+    "files": [
+        "jquery.ga.plugin.js"
+    ]
+}

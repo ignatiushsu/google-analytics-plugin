@@ -2,7 +2,7 @@
 
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.0.03 fixes target attribute issue, now opens in target if target is specified. Requires jQuery 1.4.2+ and GA async. Read the change log + developer notes.
+ * v1.1.01 new function for tracking domain redirects. Requires jQuery 1.4.2+ and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2012 Georgetown University. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
  * Attribution: This code is inspired by gaAddons FREE v1.0, Copyright 2011 Stéphane Hamel (http://gaAddons.com), licensed under CC BY-NC-SA 3.0.
  */
@@ -97,5 +97,35 @@ $(document).ready(function() {
     _gaq.push(['master._trackPageview', ga_trk_error]);
     // alert('404 Test\n Page Title: ' + document.title + '\n Full Href: ' + ga_trk_error);
   }
+
+  // DOMAIN REDIRECTS
+  // F5 domain redirects append #domain-redirected to destination domain.
+  var redirectURL = window.location.href.match(/#domain-redirected$/i);
+  if (redirectURL){
+    var domainCurrent = window.location.href.match(/\/\/([^\/]+)/i)[1];
+
+    // clean up referrals from popular search engines with localized TLDs
+    if (document.referrer.match(/(google|bing)\.com(\.[\w]{2,3})?\/(url|search)\?[\w]+?/i)){ var domainReferral = document.referrer.match(/\/\/([^\/]+\/(url|search)\?)/i)[1]; }
+    // report full URL from non-search referrals
+    else if (document.referrer){ var domainReferral = document.referrer.match(/\/\/(.*)/i)[1].toLowerCase(); }
+    // report direct if no referral
+    else { var domainReferral = 'direct'; }
+
+    _gaq.push(['_trackEvent', 'inbound-redirect', 'referral', domainReferral, 1, true]);
+    _gaq.push(['master._trackEvent', 'inbound-redirect', 'referral', domainReferral, 1, true]);
+    // alert('Referrer: ' + domainReferral);
+
+	// Message to visitor
+	// Detect if using GU Core markup
+    if ($('#main .first .asset-body').length > 0){
+      $('#main .first .asset-body').append('<div class="callout information"><h3>New Website, New Link</h3><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit us at this URL in the future (<a href="http://' + domainCurrent + '">http://' + domainCurrent + '</a>).</p></div><br/>');
+    }
+	// If not, fallback to body tag
+    else {
+      $('body').prepend('<div style="border: 4px solid #bdbdbd; width:100%; min-height:4.5em; background: #dedede; margin: 0px auto;"><div style="margin: 0px auto; max-width:750px; text-align:center; padding: 0.5em 3%;"><strong>New Website, New Link</strong><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit us at this URL in the future (<a href="http://' + domainCurrent + '">http://' + domainCurrent + '</a>).</p></div></div>');
+	}
+    // alert(' Hash: ' + redirectURL + '\n Current Domain: ' + domainCurrent);
+  }
+  // else {alert('no redirect url');}
   
 });

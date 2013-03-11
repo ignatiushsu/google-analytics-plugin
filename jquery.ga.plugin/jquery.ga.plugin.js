@@ -11,7 +11,7 @@ $(document).ready(function() {
 
   // VARIABLES
   // Set tracked file types
-  var $ga_file = '\\.(pdf|docx?|pptx?|xlsx?|zip|rar|mp\\d|txt|rtf)$';
+  var $ga_file = '\\.(pdf|docx?|xlsx?|pptx?|zip|mp\\d|rtf|txt|exe|app|apk)$';
   var $ga_file_regex = new RegExp($ga_file, "i");
   var $ga_file_fn = function() {
     return this.href.match($ga_file_regex);

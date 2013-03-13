@@ -105,7 +105,8 @@ $(document).ready(function() {
     var domainCurrent = window.location.href.match(/\/\/([^\/]+)/i)[1];
 
     // clean up referrals from popular search engines with localized TLDs
-    if (document.referrer.match(/(google|bing)\.com(\.[\w]{2,3})?\/(url|search)\?[\w]+?/i)){ var domainReferral = document.referrer.match(/\/\/([^\/]+\/(url|search)\?)/i)[1]; }
+    if (document.referrer.match(/(google|bing)(\.com?)?(\.[\w]{2,3})?\/(url|search)\?[\w]+?/i)){ var domainReferral = document.referrer.match(/\/\/([^\/]+\/(url|search)\?)/i)[1]; }
+    else if (document.referrer.match(/(search\.yahoo)(\.com?)?(\.[\w]{2,3})?\/(mobile\/s|search)/i)){ var domainReferral = document.referrer.match(/\/\/([^\/]+\/(mobile\/s|search))/i)[1]; }
     // report full URL from non-search referrals
     else if (document.referrer){ var domainReferral = document.referrer.match(/\/\/(.*)/i)[1].toLowerCase(); }
     // report direct if no referral

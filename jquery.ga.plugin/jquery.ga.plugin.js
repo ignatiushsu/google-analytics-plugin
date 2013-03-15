@@ -100,7 +100,7 @@ $(document).ready(function() {
 
   // DOMAIN REDIRECTS
   // F5 domain redirects append #domain-redirected to destination domain.
-  var redirectURL = window.location.href.match(/#domain-redirected$/i);
+  var redirectURL = window.location.href.match(/#domain-redirected([\?\&\-][^\/^\#]+)?$/i);
   if (redirectURL){
     var domainCurrent = window.location.href.match(/\/\/([^\/]+)/i)[1];
 

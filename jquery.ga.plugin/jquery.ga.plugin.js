@@ -116,10 +116,9 @@ $(document).ready(function() {
     _gaq.push(['master._trackEvent', 'inbound-redirect', 'referral', domainReferral, 1, true]);
     // alert('Referrer: ' + domainReferral);
 
-    // No Mssg (long-term redirect)
-    if (document.referrer.match(/#domain-redirected&mssg=no/i)){}
-    // Mssg (temp redirect)
-    else {
+    // Display mssg (temp redirect)
+	// Negative lookahead
+    if (window.location.href.match(/#domain-redirected(?!&mssg=no)/i)){
       // Message to visitor
       // Detect if using GU Core markup
       if ($('#main .first .asset-body').length > 0){
@@ -131,6 +130,9 @@ $(document).ready(function() {
 	  }
       // alert(' Hash: ' + redirectURL + '\n Current Domain: ' + domainCurrent);
     }
+    // Do not display mssg (long-term redirect)
+    else{}
+
   }
   // else {alert('no redirect url');}
   

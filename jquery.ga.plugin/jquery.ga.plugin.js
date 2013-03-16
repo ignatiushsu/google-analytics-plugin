@@ -117,7 +117,7 @@ $(document).ready(function() {
     // alert('Referrer: ' + domainReferral);
 
     // No Mssg (long-term redirect)
-    if (document.referrer.match(/#domain-redirected&mssg=no/i){}
+    if (document.referrer.match(/#domain-redirected&mssg=no/i)){}
     // Mssg (temp redirect)
     else {
       // Message to visitor

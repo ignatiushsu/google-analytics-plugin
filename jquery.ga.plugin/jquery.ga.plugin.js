@@ -126,7 +126,7 @@ $(document).ready(function() {
       }
 	  // If not, fallback to body tag
       else {
-        $('body').prepend('<div style="border: 4px solid #bdbdbd; width:100%; min-height:4.5em; background: #dedede; margin: 0px auto;"><div style="margin: 0px auto; max-width:750px; text-align:center; padding: 0.5em 3%;"><strong>New Website, New Link</strong><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit us at this URL in the future (<a href="http://' + domainCurrent + '">http://' + domainCurrent + '</a>).</p></div></div>');
+        $('body').prepend('<style>#visitor-mssg {margin: 0px auto; border: 4px solid #bdbdbd; width:100%; min-height:4.5em; background: #dedede;}#visitor-mssg div {margin: 0px auto; max-width:750px; text-align: center; padding: 0.5em 3%;}#visitor-mssg div p {margin:0.3em;}</style><div id="visitor-mssg"><div><p><strong>New Website, New Link</strong></p><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit us at this URL in the future (<a href="http://' + domainCurrent + '">http://' + domainCurrent + '</a>).</p></div></div>');
 	  }
       // alert(' Hash: ' + redirectURL + '\n Current Domain: ' + domainCurrent);
     }

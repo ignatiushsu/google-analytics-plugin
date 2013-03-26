@@ -2,7 +2,7 @@
 
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.1.03 new function for tracking domain redirects. Requires jQuery 1.4.2+ and GA async. Read the change log + developer notes.
+ * v1.1.04 new function for tracking domain redirects. Requires jQuery 1.4.2+ and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2012 Georgetown University. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
  * Attribution: This code is inspired by gaAddons FREE v1.0, Copyright 2011 Stéphane Hamel (http://gaAddons.com), licensed under CC BY-NC-SA 3.0.
  */
@@ -52,8 +52,8 @@ $(document).ready(function() {
     _gaq.push(['_trackEvent', 'outbound', 'click', ga_trk_outbound]);
     _gaq.push(['master._trackEvent', 'outbound', 'click', ga_trk_outbound]);
     // alert('Outbound Test\n Domain: ' + this.href + '\n GA Value: ' + ga_trk_outbound);
-    // If target, emulate with window.open()
-    if ($(this).attr('target') !== undefined){
+    // If target, emulate with window.open(). If this and this eval fixes issue #9 in GitHub
+    if ($(this).attr('target') !== undefined && $(this).attr('target') !== '' ){
 	  var linkTarget = $(this).attr('target');
       window.open(this.href, linkTarget);
     }
@@ -68,7 +68,7 @@ $(document).ready(function() {
     _gaq.push(['master._trackEvent', 'download', 'click', ga_trk_download]);
     // alert('Download Test\n Full Href: ' + this.href + '\n GA Value: ' + ga_trk_download);
     // If target, emulate with window.open()
-    if ($(this).attr('target') !== undefined){
+    if ($(this).attr('target') !== undefined && $(this).attr('target') !== '' ){
 	  var linkTarget = $(this).attr('target');
       window.open(this.href, linkTarget);
     }
@@ -83,7 +83,7 @@ $(document).ready(function() {
     _gaq.push(['master._trackSocial', 'email', 'send', ga_trk_mailto]);
     //alert('Mailto Test\n Full Href: ' + this.href + '\n GA Value: ' + ga_trk_mailto);
     // If target, emulate with window.open()
-    if ($(this).attr('target') !== undefined){
+    if ($(this).attr('target') !== undefined && $(this).attr('target') !== '' ){
 	  var linkTarget = $(this).attr('target');
       window.open(this.href, linkTarget);
     }

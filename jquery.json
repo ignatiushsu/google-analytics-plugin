@@ -1,10 +1,10 @@
 {
     "name": "ga.plugin",
-    "version": "1.0.02",
+    "version": "1.1.04",
     "title": "jQuery Google Analytics Async Plugin",
     "author": {
         "name": "Ignatius Hsu",
-        "url": "http://about.me/ignatiushsu"
+        "url": "http://digitalmeasure.me"
     },
     "licenses": [
         {
@@ -16,7 +16,7 @@
         "jquery": ">=1.4.2"
         "ga-async-tracking": "http://support.google.com/analytics/bin/answer.py?hl=en&answer=1008080"
     },
-    "description": "This plugin enhances online measurement of sites that are tracked through Google Analytics (GA) Async. The plugin submits events to GA when visitors click on document/file links, external links and email addresses links; it tracks 404 pages by submitting page referral data to GA. Future releasese will include cross-domain tracking.",
+    "description": "This plugin enhances online measurement of sites that are tracked through Google Analytics (GA) Async. The plugin provides the following functionality: submits events to GA when visitors click on document/file links, external links and email addresses links; tracks 404 pages by submitting page referral data to GA; tracks visitors clicking across multiple domain; tracks redirects as events (through a configurable hash tag in the URL) and can provide visitors with a message about redirect.",
     "keywords": [
         "Google Analytics Async",
         "online measurement",
@@ -27,8 +27,8 @@
     "maintainers": [
         {
             "name": "Ignatius Hsu",
-            "email" : "ignatiushsu[at]gmail[dot]com",
-            "url": "http://about.me/ignatiushsu"
+            "email" :"ignatiushsu[at]gmail[dot]com",
+            "url": "http://digitalmeasure.me"
         }
     ],
     "files": [

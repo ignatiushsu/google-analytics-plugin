@@ -18,4 +18,4 @@ Read more about this project at my <a href="http://digitalmeasure.me">digital an
 
 ## Documentation ##
 
-Coming soon in the GitHub wiki.
+Check out the [jQuery Google Analytics Plugin wiki](https://github.com/ignatiushsu/google-analytics-plugin/wiki).

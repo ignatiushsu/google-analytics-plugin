@@ -1,6 +1,6 @@
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.1.04 new function for tracking domain redirects. Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
+ * v1.1.05 fixed bug where anchor hrefs w/javascript fail to open (issue #10). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2013 Georgetown University and Ignatius Hsu. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
  * Attribution: This code is inspired by gaAddons free v1.0, Copyright 2011 Stephane Hamel (http://gaAddons.com).
  */
@@ -41,7 +41,7 @@ $(document).ready(function() {
   
   // OUTBOUND
   $('a').not(function() {
-    var ga_outbound_fn = new RegExp('^$|mailto:|' + $ga_xdomain + '|' + $ga_file, "i");
+    var ga_outbound_fn = new RegExp('^$|mailto:|javascript:|' + $ga_xdomain + '|' + $ga_file, "i");
     return this.href.match(ga_outbound_fn);
   })
   .click(function(e) {

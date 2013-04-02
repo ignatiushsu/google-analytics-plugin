@@ -1,6 +1,6 @@
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.1.05 fixed bug where anchor hrefs w/javascript fail to open (issue #10). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
+ * v1.1.06 removed hash tag from redirected URLs (issue #13). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2013 Georgetown University and Ignatius Hsu. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
  * Attribution: This code is inspired by gaAddons free v1.0, Copyright 2011 Stephane Hamel (http://gaAddons.com).
  */
@@ -25,6 +25,9 @@ $(document).ready(function() {
   // Set context as SLD.TLD
   var $ga_sld_tld = window.location.hostname.match(/[\d\w][\d\w-]{1,61}[\d\w]\.[\d\w]{2,6}$/i);
 
+  // Set mssg blank by default
+  var mssg = '';
+  
   // X-DOMAIN
   // track links as x-domain if matches x-domain list + does not match current host + does not match downloaded files.
   // does it need to exclude all hosts matching second level domain (blog.foo.com host matches foo.com)???
@@ -97,7 +100,7 @@ $(document).ready(function() {
   }
 
   // DOMAIN REDIRECTS
-  // F5 domain redirects append #domain-redirected to destination domain.
+  // F5 domain redirects append #domain-redirected to destination URL.
   var redirectURL = window.location.href.match(/#domain-redirected([\?&-][^\/^\#]+)?$/i);
   if (redirectURL){
     var domainCurrent = window.location.href.match(/\/\/([^\/]+)/i)[1];
@@ -115,9 +118,9 @@ $(document).ready(function() {
     // alert('Referrer: ' + domainReferral);
 
     // Display mssg (temp redirect)
-	// Negative lookahead
-    if (window.location.href.match(/#domain-redirected(?!&mssg=no)/i)){
-      // Message to visitor
+    if (window.location.href.match(/#domain-redirected(?!&mssg=no)/i)){ mssg = true; } //Negative lookahead
+
+    if (mssg == true){
       // Detect if using GU Core markup
       if ($('#main .first .asset-body').length > 0){
       $('#main .first .asset-body').append('<div class="callout information"><h3>New Website, New Link</h3><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit us at this URL in the future (<a href="http://' + domainCurrent + '">http://' + domainCurrent + '</a>).</p></div><br/>');
@@ -131,6 +134,13 @@ $(document).ready(function() {
     // Do not display mssg (long-term redirect)
     else{}
 
+    // Lastly, remove hash tag from URL string without reloading URL in browser
+    var newURL = window.location.href.match(/(.*)#domain-redirected(\&mssg=no)?(.*)/i);
+    if (typeof newURL[3] === 'undefined'){newURLEnd = '';}
+      else {newURLEnd = newURL[3];}
+    if (history.pushState) {
+      window.history.pushState({"html":newURL[1] + newURLEnd,"pageTitle":document.title}, document.title, newURL[1] + newURLEnd);	
+    }
   }
   // else {alert('no redirect url');}
   

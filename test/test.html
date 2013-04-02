@@ -20,15 +20,15 @@
 </ol>
 <h4>Internal Links (no tracking with standard script, no tracking with cross domain script)</h4>
 <ol>
-    <li><a href="https://gucms-dev.georgetown.edu/foo">Current site link over https, no trailing slash</a></li>
-    <li><a href="http://gucms-dev.georgetown.edu/foo">Current site link over http, no trailing slash</a></li>
+    <li><a href="http://www7.georgetown.edu/foo">Internal link over http, no trailing slash</a></li>
+    <li><a href="http://www7.georgetown.edu/foo">Internal link over https, no trailing slash</a></li>
     <li><a href="http://www.georgetown.edu">Georgetown University link, no trailing slash</a></li>
     <li><a href="http://www.georgetown.edu/">Georgetown University link, w/trailing slash</a></li>
     <li><a href="http://www9.Georgetown.EDU/grad/">www9 Georgetown.EDU link</a></li>
     <li><a href="http://qatar.sfs.georgetown.edu/">SFS Qatar link</a></li>
     <li><a href="http://www9.georgetown.edu/grad/">www9 Georgetown.edu link</a></li>
-    <li><a href="https://gucms-dev.georgetown.edu/foo-bar#stuff-and_stuff?var=param+value">valid anchor with parameters</a></li>
-    <li><a href="https://gucms-dev.georgetown.edu/foo-bar#stuff-and_stuff?var=param+value/trick">anchor that is invalid</a></li>
+    <li><a href="https://www7.georgetown.edu/foo-bar#stuff-and_stuff?var=param+value">valid anchor with parameters (over https)</a></li>
+    <li><a href="https://www7.georgetown.edu/foo-bar#stuff-and_stuff?var=param+value/trick">anchor that is invalid (over https)</a></li>
     <li><a href="http://foo.bar.subsite.georgetown.edu/foo/bar/index.html">Fake georgetown.edu link with lots of sub-domains foo.bar.subsite.georgetown.edu/foo/bar/index.html</a></li>
     <li><a href="/test">Relative link, no trailing slash</a></li>
     <li><a href="http://www9.georgetown.edu/grad/something.doc">(tracked as download only) www9 georgetown.edu document link</a></li>
@@ -36,21 +36,22 @@
 </ol>
 <h4>Document Downloads</h4>
 <ol>
-    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.docx">.docx link to document</a></li>
+    <li><a href="http://www7.georgetown.edu/grad/foo.docx">.docx link to document</a></li>
     <li><a target="_blank" href="http://www.google.com/foo.doc">external .doc link (external link, no outbound tracking)</a> (target="_blank")</li>
-    <li><a href="http://www.google.com/foo.pdf">external .pdf link (external link, no outbound tracking)</a></li>
-    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.mp3">.mp3 link to music file</a></li>
-    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.Docx">.Docx link to document</a></li>
-    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.rar">(no tracking) .rar link to compressed file</a></li>
-    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.mp35">(no tracking) non-valid file type (.mp35)</a></li>
-    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.docx/blah">(no tracking) valid file type (.docx) but with invalid random path attached to file extension (/blah)</a></li>
-    <li><a href="http://gucms-dev.georgetown.edu/grad/foo.docx?thing=foo&amp;rel=foo">(no tracking) .docx link to document with parameterized URL (?thing=foo&amp;rel=foo). Params are for external link campaign codes. Documents do not execute js, so cannot track them in analytics. Only purpose of parms would be if the CMS adds them.</a></li>
+    <li><a href="http://www7.google.com/foo.pdf">external .pdf link (external link, no outbound tracking)</a></li>
+    <li><a href="http://www7.georgetown.edu/grad/foo.mp3">.mp3 link to music file</a></li>
+    <li><a href="http://www7.georgetown.edu/grad/foo.Docx">.Docx link to document</a></li>
+    <li><a href="http://www7.georgetown.edu/grad/foo.rar">(no tracking) .rar link to compressed file</a></li>
+    <li><a href="http://www7.georgetown.edu/grad/foo.mp35">(no tracking) non-valid file type (.mp35)</a></li>
+    <li><a href="http://www7.georgetown.edu/grad/foo.docx/blah">(no tracking) valid file type (.docx) but with invalid random path attached to file extension (/blah)</a></li>
+    <li><a href="http://www7.georgetown.edu/grad/foo.docx?thing=foo&amp;rel=foo">(no tracking) .docx link to document with parameterized URL (?thing=foo&amp;rel=foo). Params are for external link campaign codes. Documents do not execute js, so cannot track them in analytics. Only purpose of parms would be if the CMS adds them.</a></li>
 </ol>
 <h4>Outbound Links</h4>
 <ol>
-    <li><a href="http://www.guhoyas.com/">www.guhoyas.com/</a></li>
+    <li><a href="https://georgetownresearch.interneer.com/intellect">Link is found on the OSR site, and wasn't working on 3/25/13 http://gumc.georgetown.edu/osr/</a></li>
+	<li><a href="http://www.guhoyas.com/">www.guhoyas.com/</a></li>
     <li><a target="_blank" href="http://www.google.com/">www.google.com/</a> (target="_blank")</li>
-    <li><a target="_self"href="http://www.facebook.com/georgetownuniv">www.facebook.com/georgetownuniv/</a> (target="_self")</li>
+    <li><a target="_self" href="http://www.facebook.com/georgetownuniv">www.facebook.com/georgetownuniv/</a> (target="_self")</li>
     <li><a target="_parent" href="http://www.flickr.com/photos/georgetownuniversity">www.flickr.com/photos/georgetownuniversity/</a> (target="_parent")</li>
     <li><a target="_top" href="http://deimos3.apple.com/WebObjects/Core.woa/Browse/georgetown.edu">deimos3.apple.com/WebObjects/Core.woa/Browse/georgetown.edu</a> (target="_top")</li>
     <li><a href="http://www.GUHoyas.com/">www.GUHoyas.com/</a></li>
@@ -69,11 +70,18 @@
     <li><a href="MailTo:foo@Georgetown.edu">(no tracking) MailTo link to email foo@georgetown.edu, limitation in pattern </a></li>
     <li><a href="mailtome:foo@georgetown.edu">(no tracking) invalid mailtome: link to email foo@georgetown.edu</a></li>
 </ol>
+<h4>Redirect URLs</h4>
+<ol>
+    <li><a target="_blank" href="#domain-redirected">Domain redirect w/visitor message</a></li>
+    <li><a target="_blank" href="#domain-redirected?stuff">Domain redirect w/visitor message</a></li>
+    <li><a target="_blank" href="#domain-redirected&mssg=no">Domain redirect, no visitor message</a></li>
+    <li><a target="_blank" href="#domain-redirected&mssg=no?more=stuff">Domain redirect no visitor message</a></li>
+</ol>
 <!--End Test Links-->
 
-<!--Test with jQuery v1.4.2, v1.6.1, v1.9.1-->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
-<script src="jquery.ga.plugin.js"></script>
+<h4>Test with jQuery 1.4.2, 1.6.1, 1.9.1</h4>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<script src="jquery.ga.plugin.js"  type="text/javascript"></script>
 
 <!--Google Analytics - TEST-->
 <script type="text/javascript">
@@ -100,6 +108,7 @@ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async
 ga.src = 'http://www.google-analytics.com/ga.js';
 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 })();
+
 </script>
 </body>
 </html>

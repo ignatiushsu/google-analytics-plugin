@@ -135,10 +135,11 @@ $(document).ready(function() {
     else{}
 
     // Lastly, remove hash tag from URL string without reloading URL in browser
-    var newURL = window.location.href.match(/(.*)#domain-redirected(\&mssg=no)?(.*)/i);
-    if (typeof newURL[3] === 'undefined'){newURL[3] = '';}
-    if (history.pushState) {
-      window.history.pushState({"html":newURL[1] + newURL[3],"pageTitle":document.title}, document.title, newURL[1] + newURL[3]);	
+    // test browser support for replaceState
+    if (history.replaceState) {
+      var newURL = window.location.href.match(/(.*)#domain-redirected(\&mssg=no)?(.*)/i);
+      if (typeof newURL[3] === 'undefined'){newURL[3] = '';}
+      window.history.replaceState({"html":newURL[1] + newURL[3],"pageTitle":document.title}, document.title, newURL[1] + newURL[3]);	
     }
   }
   // else {alert('no redirect url');}

@@ -139,7 +139,6 @@ $(document).ready(function() {
     if (typeof newURL[3] === 'undefined'){newURL[3] = '';}
     if (history.pushState) {
       window.history.pushState({"html":newURL[1] + newURL[3],"pageTitle":document.title}, document.title, newURL[1] + newURL[3]);	
-      alert(newURL[3]);
     }
   }
   // else {alert('no redirect url');}

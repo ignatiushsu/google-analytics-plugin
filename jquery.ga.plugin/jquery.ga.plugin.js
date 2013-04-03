@@ -1,6 +1,6 @@
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.1.06 removed hash tag from redirected URLs (issue #13). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
+ * v1.1.07 removed hash tag from redirected URLs (issue #13). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2013 Georgetown University and Ignatius Hsu. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
  * Attribution: This code is inspired by gaAddons free v1.0, Copyright 2011 Stephane Hamel (http://gaAddons.com).
  */
@@ -136,10 +136,10 @@ $(document).ready(function() {
 
     // Lastly, remove hash tag from URL string without reloading URL in browser
     var newURL = window.location.href.match(/(.*)#domain-redirected(\&mssg=no)?(.*)/i);
-    if (typeof newURL[3] === 'undefined'){newURLEnd = '';}
-      else {newURLEnd = newURL[3];}
+    if (typeof newURL[3] === 'undefined'){newURL[3] = '';}
     if (history.pushState) {
-      window.history.pushState({"html":newURL[1] + newURLEnd,"pageTitle":document.title}, document.title, newURL[1] + newURLEnd);	
+      window.history.pushState({"html":newURL[1] + newURL[3],"pageTitle":document.title}, document.title, newURL[1] + newURL[3]);	
+      alert(newURL[3]);
     }
   }
   // else {alert('no redirect url');}

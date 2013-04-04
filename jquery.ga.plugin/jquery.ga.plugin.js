@@ -1,6 +1,6 @@
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.1.08 removed hash tag from redirected URLs (issue #13). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
+ * v1.1.09 updating redirect tracking (partial fix to issue #8). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2013 Georgetown University and Ignatius Hsu. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
  * Attribution: This code is inspired by gaAddons free v1.0, Copyright 2011 Stephane Hamel (http://gaAddons.com).
  */
@@ -103,7 +103,10 @@ $(document).ready(function() {
   // F5 domain redirects append #domain-redirected to destination URL.
   var redirectURL = window.location.href.match(/#domain-redirected([\?&-][^\/^\#]+)?$/i);
   if (redirectURL){
-    var domainCurrent = window.location.href.match(/\/\/([^\/]+)/i)[1];
+    var newURLPre = window.location.href.match(/(^https?:\/\/)(.*)#domain-redirected(\&mssg=no)?(.*)?/i);
+    if (typeof newURLPre[4] === 'undefined'){newURLPre[4] = '';}
+	var newURLNoProtocol = newURLPre[2] + newURLPre[4];
+	var newURLFull = newURLPre[1] + newURLNoProtocol;
 
     // clean up referrals from popular search engines with localized TLDs
     if (document.referrer.match(/(google|bing)(\.com?)?(\.[\w]{2,3})?\/(url|search)\?[\w]+?/i)){ var domainReferral = document.referrer.match(/\/\/([^\/]+\/(url|search)\?)/i)[1]; }
@@ -113,9 +116,9 @@ $(document).ready(function() {
     // report direct if no referral
     else { var domainReferral = 'direct'; }
 
-    _gaq.push(['_trackEvent', 'inbound-redirect', 'referral', domainReferral, 1, true]);
-    _gaq.push(['master._trackEvent', 'inbound-redirect', 'referral', domainReferral, 1, true]);
-    // alert('Referrer: ' + domainReferral);
+    _gaq.push(['_trackEvent', 'inbound-redirect', newURLNoProtocol, domainReferral, 1, true]);
+    _gaq.push(['master._trackEvent', 'inbound-redirect', newURLNoProtocol, domainReferral, 1, true]);
+    //alert('URL: ' + newURLNoProtocol + '\n Referrer: ' + domainReferral);
 
     // Display mssg (temp redirect)
     if (window.location.href.match(/#domain-redirected(?!&mssg=no)/i)){ mssg = true; } //Negative lookahead
@@ -123,13 +126,13 @@ $(document).ready(function() {
     if (mssg == true){
       // Detect if using GU Core markup
       if ($('#main .first .asset-body').length > 0){
-      $('#main .first .asset-body').append('<div class="callout information"><h3>New Website, New Link</h3><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit us at this URL in the future (<a href="http://' + domainCurrent + '">http://' + domainCurrent + '</a>).</p></div><br/>');
+      $('#main .first .asset-body').append('<div class="callout information"><h3>New Website, New Link</h3><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit <a href="//' + window.location.hostname + '">our new home page</a>.</p></div><br/>');
       }
 	  // If not, fallback to body tag
       else {
-        $('body').prepend('<style>#visitor-mssg {margin: 0px auto; border: 4px solid #bdbdbd; width:100%; min-height:4.5em; background: #dedede;}#visitor-mssg div {margin: 0px auto; max-width:750px; text-align: center; padding: 0.5em 3%;}#visitor-mssg div p {margin:0.3em;}</style><div id="visitor-mssg"><div><p><strong>New Website, New Link</strong></p><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit us at this URL in the future (<a href="http://' + domainCurrent + '">http://' + domainCurrent + '</a>).</p></div></div>');
+        $('body').prepend('<style>#visitor-mssg {margin: 0px auto; border: 4px solid #bdbdbd; width:100%; min-height:4.5em; background: #dedede;}#visitor-mssg div {margin: 0px auto; max-width:750px; text-align: center; padding: 0.5em 3%;}#visitor-mssg div p {margin:0.3em;}</style><div id="visitor-mssg"><div><p><strong>New Website, New Link</strong></p><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit <a href="//' + window.location.hostname + '">our new home page</a>.</p></div></div>');
 	  }
-      // alert(' Hash: ' + redirectURL + '\n Current Domain: ' + domainCurrent);
+      // alert(' Hash: ' + redirectURL + '\n Current Domain: ' + window.location.hostname);
     }
     // Do not display mssg (long-term redirect)
     else{}
@@ -137,9 +140,7 @@ $(document).ready(function() {
     // Lastly, remove hash tag from URL string without reloading URL in browser
     // test browser support for replaceState
     if (history.replaceState) {
-      var newURL = window.location.href.match(/(.*)#domain-redirected(\&mssg=no)?(.*)/i);
-      if (typeof newURL[3] === 'undefined'){newURL[3] = '';}
-      window.history.replaceState({"html":newURL[1] + newURL[3],"pageTitle":document.title}, document.title, newURL[1] + newURL[3]);	
+      window.history.replaceState({"html":newURLFull,"pageTitle":document.title}, document.title, newURLFull);	
     }
   }
   // else {alert('no redirect url');}

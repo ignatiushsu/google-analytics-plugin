@@ -1,6 +1,6 @@
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.1.09 updating redirect tracking (partial fix to issue #8). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
+ * v1.1.10 realigns 404 error and redirect tracking as events (addresses issues #8 and #12). Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2013 Georgetown University and Ignatius Hsu. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
  * Attribution: This code is inspired by gaAddons free v1.0, Copyright 2011 Stephane Hamel (http://gaAddons.com).
  */
@@ -27,6 +27,19 @@ $(document).ready(function() {
 
   // Set mssg blank by default
   var mssg = '';
+
+  // FUNCTIONS
+  // fn to clean up referrals from popular search engines with localized TLDs
+  function sourceCleaned(){  
+    if (document.referrer.match(/(google|bing)(\.com?)?(\.[\w]{2,3})?\/(url|search)\?[\w]+?/i)){ var sourceURL = document.referrer.match(/\/\/([^\/]+\/(url|search)\?)/i)[1]; }
+    else if (document.referrer.match(/(search\.yahoo)(\.com?)?(\.[\w]{2,3})?\/(mobile\/s|search)/i)){ var sourceURL = document.referrer.match(/\/\/([^\/]+\/(mobile\/s|search))/i)[1]; }
+    // report full URL from non-search referrals
+    else if (document.referrer){ var sourceURL = document.referrer.match(/\/\/(.*)/i)[1].toLowerCase(); }
+    // report direct if no referral
+    else { var sourceURL = 'direct'; }
+    return sourceURL;
+  }
+  var sourceURL = sourceCleaned();
   
   // X-DOMAIN
   // track links as x-domain if matches x-domain list + does not match current host + does not match downloaded files.
@@ -90,35 +103,19 @@ $(document).ready(function() {
     }
     else {window.location = this.href;}
   });
-  
-  // 404 ERROR PAGES
-  if (document.title.search(/file not found|page not found/i) !== -1) {
-    var ga_trk_error = '/virtualpageview/404/' + location.host + location.pathname + '?from=' + document.referrer;
-    _gaq.push(['_trackPageview', ga_trk_error]);
-    _gaq.push(['master._trackPageview', ga_trk_error]);
-    // alert('404 Test\n Page Title: ' + document.title + '\n Full Href: ' + ga_trk_error);
-  }
 
   // DOMAIN REDIRECTS
   // F5 domain redirects append #domain-redirected to destination URL.
   var redirectURL = window.location.href.match(/#domain-redirected([\?&-][^\/^\#]+)?$/i);
   if (redirectURL){
-    var newURLPre = window.location.href.match(/(^https?:\/\/)(.*)#domain-redirected(\&mssg=no)?(.*)?/i);
+    var newURLPre = window.location.href.match(/(^https?:\/\/)(.*)#domain-redirected(\&mssg=no)?(.*)/i);
     if (typeof newURLPre[4] === 'undefined'){newURLPre[4] = '';}
 	var newURLNoProtocol = newURLPre[2] + newURLPre[4];
 	var newURLFull = newURLPre[1] + newURLNoProtocol;
 
-    // clean up referrals from popular search engines with localized TLDs
-    if (document.referrer.match(/(google|bing)(\.com?)?(\.[\w]{2,3})?\/(url|search)\?[\w]+?/i)){ var domainReferral = document.referrer.match(/\/\/([^\/]+\/(url|search)\?)/i)[1]; }
-    else if (document.referrer.match(/(search\.yahoo)(\.com?)?(\.[\w]{2,3})?\/(mobile\/s|search)/i)){ var domainReferral = document.referrer.match(/\/\/([^\/]+\/(mobile\/s|search))/i)[1]; }
-    // report full URL from non-search referrals
-    else if (document.referrer){ var domainReferral = document.referrer.match(/\/\/(.*)/i)[1].toLowerCase(); }
-    // report direct if no referral
-    else { var domainReferral = 'direct'; }
-
-    _gaq.push(['_trackEvent', 'inbound-redirect', newURLNoProtocol, domainReferral, 1, true]);
-    _gaq.push(['master._trackEvent', 'inbound-redirect', newURLNoProtocol, domainReferral, 1, true]);
-    //alert('URL: ' + newURLNoProtocol + '\n Referrer: ' + domainReferral);
+    _gaq.push(['_trackEvent', 'inbound-redirect', newURLNoProtocol, sourceURL, 1, true]);
+    _gaq.push(['master._trackEvent', 'inbound-redirect', newURLNoProtocol, sourceURL, 1, true]);
+    //alert(' Domain Redirect Test\n URL: ' + newURLNoProtocol + '\n Source: ' + sourceURL);
 
     // Display mssg (temp redirect)
     if (window.location.href.match(/#domain-redirected(?!&mssg=no)/i)){ mssg = true; } //Negative lookahead
@@ -144,5 +141,13 @@ $(document).ready(function() {
     }
   }
   // else {alert('no redirect url');}
+  
+  // 404 ERROR PAGES
+  if (document.title.search(/file not found|page not found/i) !== -1) {
+    var errorPageURL = window.location.href.match(/\/\/(.*)/i)[1];
+    _gaq.push(['_trackEvent', '404-error', errorPageURL, sourceURL, 1, true]);
+    _gaq.push(['master._trackEvent', '404-error', errorPageURL, sourceURL, 1, true]);
+    //alert(' 404 Test\n Page Title: ' + document.title + '\n URL: ' + errorPageURL + '\n Source: ' + sourceURL);
+  }
   
 });

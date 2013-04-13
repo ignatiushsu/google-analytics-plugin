@@ -1,6 +1,6 @@
 /********** jQuery Google Analytics Async Enhancements **********/
 /* 
- * v1.1.10 realigns 404 error and redirect tracking as events (addresses issues #8 and #12).  Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
+ * v1.1.11 Enhancement to data capture for issue #8, appends "destination:" to destination URL and "source:" to source URL in event reporting.  Requires jQuery 1.4.2 or higher and GA async. Read the change log + developer notes.
  * Developed by Ignatius Hsu, Copyright 2013 Georgetown University and Ignatius Hsu. Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) http://creativecommons.org/licenses/by-nc-sa/3.0/ and is provided as is, without guarantee or support.
  * Attribution: This code is inspired by gaAddons free v1.0, Copyright 2011 Stephane Hamel (http://gaAddons.com).
  */
@@ -80,7 +80,7 @@ $(document).ready(function() {
     var ga_trk_download = this.href.replace(/^https?:\/\//, '').toLowerCase();
     _gaq.push(['_trackEvent', 'download', 'click', ga_trk_download]);
     _gaq.push(['master._trackEvent', 'download', 'click', ga_trk_download]);
-    // alert('Download Test\n Full Href: ' + this.href + '\n GA Value: ' + ga_trk_download);
+    // alert('Download Test\n full href: ' + this.href + '\n file: ' + ga_trk_download);
     // If target, emulate with window.open()
     if ($(this).attr('target') !== undefined && $(this).attr('target') !== '' ){
 	  var linkTarget = $(this).attr('target');
@@ -95,7 +95,7 @@ $(document).ready(function() {
     var ga_trk_mailto = this.href.replace(/^mailto:/i, '').toLowerCase();
     _gaq.push(['_trackSocial', 'email', 'send', ga_trk_mailto]);
     _gaq.push(['master._trackSocial', 'email', 'send', ga_trk_mailto]);
-    //alert('Mailto Test\n Full Href: ' + this.href + '\n GA Value: ' + ga_trk_mailto);
+    //alert('Mailto Test\n full href: ' + this.href + '\n email: ' + ga_trk_mailto);
     // If target, emulate with window.open()
     if ($(this).attr('target') !== undefined && $(this).attr('target') !== '' ){
 	  var linkTarget = $(this).attr('target');
@@ -113,9 +113,9 @@ $(document).ready(function() {
 	var newURLNoProtocol = newURLPre[2] + newURLPre[4];
 	var newURLFull = newURLPre[1] + newURLNoProtocol;
 
-    _gaq.push(['_trackEvent', 'inbound-redirect', newURLNoProtocol, sourceURL, 1, true]);
-    _gaq.push(['master._trackEvent', 'inbound-redirect', newURLNoProtocol, sourceURL, 1, true]);
-    //alert(' Domain Redirect Test\n URL: ' + newURLNoProtocol + '\n Source: ' + sourceURL);
+    _gaq.push(['_trackEvent', 'inbound-redirect', 'destination:' + newURLNoProtocol, 'source:' + sourceURL, 1, true]);
+    _gaq.push(['master._trackEvent', 'inbound-redirect', 'destination:' + newURLNoProtocol, 'source:' + sourceURL, 1, true]);
+    //alert(' Domain Redirect Test\n destination:' + newURLNoProtocol + '\n source:' + sourceURL);
 
     // Display mssg (temp redirect)
     if (window.location.href.match(/#domain-redirected(?!&mssg=no)/i)){ mssg = true; } //Negative lookahead
@@ -129,7 +129,7 @@ $(document).ready(function() {
       else {
         $('body').prepend('<style>#visitor-mssg {margin: 0px auto; border: 4px solid #bdbdbd; width:100%; min-height:4.5em; background: #dedede;}#visitor-mssg div {margin: 0px auto; max-width:750px; text-align: center; padding: 0.5em 3%;}#visitor-mssg div p {margin:0.3em;}</style><div id="visitor-mssg"><div><p><strong>New Website, New Link</strong></p><p>Thanks for viewing our new site. We see that you found us through our old URL. Please visit <a href="//' + window.location.hostname + '">our new home page</a>.</p></div></div>');
 	  }
-      // alert(' Hash: ' + redirectURL + '\n Current Domain: ' + window.location.hostname);
+      //alert(' Hash: ' + redirectURL + '\n destination:' + window.location.hostname);
     }
     // Do not display mssg (long-term redirect)
     else{}
@@ -145,9 +145,9 @@ $(document).ready(function() {
   // 404 ERROR PAGES
   if (document.title.search(/file not found|page not found/i) !== -1) {
     var errorPageURL = window.location.href.match(/\/\/(.*)/i)[1];
-    _gaq.push(['_trackEvent', '404-error', errorPageURL, sourceURL, 1, true]);
-    _gaq.push(['master._trackEvent', '404-error', errorPageURL, sourceURL, 1, true]);
-    //alert(' 404 Test\n Page Title: ' + document.title + '\n URL: ' + errorPageURL + '\n Source: ' + sourceURL);
+    _gaq.push(['_trackEvent', '404-error', 'destination:' + errorPageURL, 'source:' + sourceURL, 1, true]);
+    _gaq.push(['master._trackEvent', '404-error', 'destination:' + errorPageURL, 'source:' + sourceURL, 1, true]);
+    //alert(' 404 Test\n title: ' + document.title + '\n destination:' + errorPageURL + '\n source:' + sourceURL);
   }
   
 });
